@@ -1,16 +1,17 @@
-let studentNameInput = document.getElementById("studentName");
-//let randomHouse = '4';
+
+let randomHouse = ['Gryffindor','Hufflepuff','Ravenclaw','Slytherin'];
+
 
 const printToDom = (stringToPrint, whereToPrint) => {
-    document.getElementById(whereToPrint).innerHTML = stringToPrint;
+    document.getElementById(whereToPrint).innerHTML += stringToPrint;
 }
 
 const submitGetStartedElem = document.getElementById("submitGetStarted");
 
-// const activateCardCreationAbility = () => {
-//     const studentCreationButtons = document.getElementsByClassName('studentCreationButton'); //why do we not have to put in btn btn-primary deleteButton
-//     for (let i=0;i<studentCreationButtons.length;i++){                               //why are we making functions inside these event listeners
-//         const element = studentCreationButtons[i];
+// const activateDeletes = () => {
+//     const deleteButtons = document.getElementsByClassName('deleteButton'); //why do we not have to put in btn btn-primary deleteButton
+//     for (let i=0;i<deleteButtons.length;i++){                               //why are we making functions inside these event listeners
+//         const element = deleteButtons[i];
 //         element.addEventListener("click", (e) => {
 //             //card that the button was on
 //             const buttonIClicked = e.target;
@@ -19,6 +20,20 @@ const submitGetStartedElem = document.getElementById("submitGetStarted");
 //         })
 //     }
 // }
+
+// const buildSortedStudent = (name,randomHouse) => {
+//     let domString = `<div class="card w-25 m-2" style="width: 18rem;">
+//     <div class="card-body">
+//       <h3 class="card-title">${name}</h3>
+//       <p>${randomHouse}</p>
+//       <button href="#" class="btn btn-danger deleteButton">Delete this</button>
+//     </div>
+//     </div>`;
+    
+//         printToDom(domString, 'studentCard');
+//         // activateDeletes();
+//     }
+
 
 const buildNewStudentCreationForm = () => {
     let domString = `<div class="d-flex justify-content-center border border-dark">
@@ -31,7 +46,7 @@ const buildNewStudentCreationForm = () => {
               <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Student:">
             </div>
             <div class="form-group mx-sm-3 mb-2">
-              <label for="studentName" class="sr-only">studentName</label>
+              <label for="studentName" class="sr-only">Enter your name</label>
               <input type="text" class="form-control" id="studentName" placeholder="Seamus Finnegan">
             </div>
             <button type="button" class="btn btn-secondary text-dark bg-light mb-2 mx-sm-5 studentCreationButton" id="submitButtonId">Sort!</button>
@@ -42,6 +57,7 @@ const buildNewStudentCreationForm = () => {
     
         printToDom(domString, 'studentCreation');
     }
+
     const activateDeletes = () => {
         const deleteButtons = document.getElementsByClassName('deleteButton'); //why do we not have to put in btn btn-primary deleteButton
         for (let i=0;i<deleteButtons.length;i++){                               //why are we making functions inside these event listeners
@@ -54,10 +70,22 @@ const buildNewStudentCreationForm = () => {
             })
         }
     }
+
+    // const activateCardCreationAbility = () => {
+    //     const studentCreationButtons = document.getElementsByClassName('studentCreationButton'); //why do we not have to put in btn btn-primary deleteButton
+    //     for (let i=0;i<studentCreationButtons.length;i++){                               //why are we making functions inside these event listeners
+    //         const element = studentCreationButtons[i];
+    //         element.addEventListener("click", buildSortedStudent('2','4'))
+    //     }
+    // }
+    
+
     const buildSortedStudent = (name) => {
+        let houseNum = Math.floor(Math.random()*randomHouse.length);
         let domString = `<div class="card w-25 m-2" style="width: 18rem;">
         <div class="card-body">
           <h3 class="card-title">${name}</h3>
+          <p>You got ${randomHouse[houseNum]}</p>
           <button href="#" class="btn btn-danger deleteButton">Delete this</button>
         </div>
         </div>`;
@@ -68,13 +96,14 @@ const buildNewStudentCreationForm = () => {
 
     submitGetStartedElem.addEventListener("click", (e) => {
         e.preventDefault();//prevents chrome from erasing our console logs
-    
+        
         buildNewStudentCreationForm();
     });
 
 
     document.getElementById('studentCreation').addEventListener('click', function() {
         if(event.target.id === 'submitButtonId') {
+            let studentNameInput = document.getElementById("studentName");
         buildSortedStudent(studentNameInput.value)
         
         }
